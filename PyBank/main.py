@@ -3,40 +3,67 @@ import os
 import csv
 #do I need to import string
 
-csvpath = os.path.join('Resources', 'budget_data.csv')
+budget_data = os.path.join('Resources', 'budget_data.csv')
 #check the path
-print(csvpath)
+print(budget_data)
 
 #add a container for the change column to be added to calculate average change of profit and losses
 profit_loss_change = []
 
-with open(csvpath) as csvfile:
+with open(budget_data, newline='') as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
-    budget_reader = csv.reader(csvfile, delimiter=',')
+    budget_reader = csv.DictReader(csvfile, delimiter=',')
 
     # Read the header row first 
     budget_header = next(budget_reader)
     print(f"CSV Header: {budget_header}")
 
+    #IT WORKS  when the month counter is in this location
+
+    for row in budget_reader:
+        month = row["Date"]
+        profit_loss = row["Profit/Losses"]     
+        #add profit_loss_change - can't get this to work get a syntax error
+        #change = profit_loss.pct_change()
+        profit_loss_change.apend(
+            {
+                "month": row["Date"],
+                "profit_loss": row["Profit/Losses"],
+                "change": change
+            }
+        )
+
+#pull file name from original path
+_, filename = os.path.split(filepath)
+
+#write to the original file adding the change column
+csvpath = os.path.join("output", filename)
+with open(csvpath, "w") as csvfile:
+    fieldnames = ["month", "profit_loss", "change"]
+    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+    writer.writeheader()
+    writer.writerows(profit_loss_change)
+
+#appended_budget = os.path.join("budget_data_change.csv")
+#with open(appended_budget, "w", newline="") as datafile:
+    #writer = csv.write(datafile)
+    #writer.writerow("profit_loss_change")
+
+    #writer.writerows(appended_budget)
+
     #The total number of months included in the dataset
     month_count = len(list(budget_reader))
-    print(month_count)
+    print(month_count)   
+        
+        #for row in budget_reader:
 
-    #for row in reader:
-        #month = row["Date"]
-        #profit_loss = row["Profit/Losses"]
         #attempt at calculating change.... NEEDS HELP
         #profit_loss_change = f"{row}-{row + 1}"
-       # profit_loss_change.apend(
-            #{
-                #"month": row["Date"],
-                #"profit_lss": row:["Profit/Losses"],
-                #"change"; row["Profit/Losses_change"]
-            #}
-        #)
-
-#need to test this out to figure out what it's doing
+        #profit_loss_change.apend({"month": row["Date"],"profit_loss": row:["Profit/Losses"],"profit_loss_change"; row["Profit/Losses_change"]})
+        
+        #need to test this out to figure out what it's doing
+        #print(f"profit_loss_change")
 
 #Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
 #profit_loss_change = calculate change of all transactions
@@ -69,7 +96,14 @@ with open(csvpath) as csvfile:
 #greatest_decrease = FILENAME["Profit/Losses"].min()
 
 #Print to terminal and export to text file with the results
-#summary = DataFrame({"Total Months": [month_count], print("---------------------"), "Total": total_amount}, "Average Change": profit_loss_average, "Greatest Increase in Profits": greatest_increase, "Greatest Decrease in profits": greatest_decrease})
+#summary = DataFrame({"Total Months": [month_count], 
+# print("---------------------"), 
+# "Total": total_amount}, 
+# "Average Change": profit_loss_average, 
+# "Greatest Increase in Profits": greatest_increase, 
+# "Greatest Decrease in profits": greatest_decrease})
+
+#FROM THE DIRECTIONS/EXAMPLE
 #Financial Analysis
 #----------------------
 #Total Months; XX
