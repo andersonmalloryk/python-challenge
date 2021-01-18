@@ -13,25 +13,28 @@ profit_loss_change = []
 with open(csvpath) as csvfile:
 
     # CSV reader specifies delimiter and variable that holds contents
-    csvreader = csv.reader(csvfile, delimiter=',')
-
-    print(csvreader)
+    budget_reader = csv.reader(csvfile, delimiter=',')
 
     # Read the header row first 
-    csv_header = next(csvreader)
-    print(f"CSV Header: {csv_header}")
-    for row in reader:
-        month = row["Date"]
-        profit_loss = row["Profit/Losses"]
+    budget_header = next(budget_reader)
+    print(f"CSV Header: {budget_header}")
+
+    #The total number of months included in the dataset
+    month_count = len(list(budget_reader))
+    print(month_count)
+
+    #for row in reader:
+        #month = row["Date"]
+        #profit_loss = row["Profit/Losses"]
         #attempt at calculating change.... NEEDS HELP
-        profit_loss_change = f"{row}-{row + 1}"
-        profit_loss_change.apend(
-            {
-                "month": row["Date"],
-                "profit_lss": row:["Profit/Losses"],
-                "change"; row["Profit/Losses_change"]
-            }
-        )
+        #profit_loss_change = f"{row}-{row + 1}"
+       # profit_loss_change.apend(
+            #{
+                #"month": row["Date"],
+                #"profit_lss": row:["Profit/Losses"],
+                #"change"; row["Profit/Losses_change"]
+            #}
+        #)
 
 #need to test this out to figure out what it's doing
 
@@ -52,8 +55,7 @@ with open(csvpath) as csvfile:
     #writer.writeheader()
     #writer.writerows(profit_loss_change)
 
-#The total number of months included in the dataset
-#month_count = len(FILENAME["Months"].unique())
+
 
 #The net total amount of "Profit/Losses" over the entire period
 #total_amount = sum(FILENAME["Profit/Losses"])
