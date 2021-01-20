@@ -9,27 +9,29 @@ from collections import Counter
 #path
 election_data = os.path.join('Resources', 'election_data.csv')
 
-#Set variables (??)
-#county = str(election_data[1])
-#candidate = str(election_data[2])
-
+#THIS DIDN'T WORK AS WRITTEN, SO I'M KEEPING IT, BUT WANT TO TRY SOMETHING ELSE
 #import the names of candidates (code from the resume analysis example)
-def load_file(filepath):
-    with open(filepath, "r") as votes_file_handler:
-        return votes_file_handler.read().lower().split()
-
+#def load_file(filepath):
+    #with open(filepath, "r") as votes_file_handler:
+        #return votes_file_handler.read().lower().split()
 # Grab the list of candidates
-candidate_list = load_file(election_data)
-
+#candidate_list = load_file(election_data)
 # Create a set of unique words from the resume
-candidates = set()
-print(candidates)
-    
-with open(election_data) as csvfile:
+#candidates = set()
+#print(candidates)
+#END OF CODE THAT DIDN'T WORK
 
+with open(election_data) as csvfile:
+    
     # CSV reader specifies delimiter and variable that holds contents
     votes_reader = csv.reader(csvfile, delimiter=',')
-    print(votes_reader)
+    candidates = []
+    
+    for row in votes_reader:
+        candidate = row[2]
+
+        candidates.append(candidate)
+        print(candidates)
 
     # Read the header row first (skip this step if there is now header)
     votes_header = next(votes_reader)
