@@ -2,6 +2,7 @@
 import os
 import csv
 import string
+import collections
 
 #import the counter
 from collections import Counter
@@ -9,37 +10,33 @@ from collections import Counter
 #path
 election_data = os.path.join('Resources', 'election_data.csv')
 
-#THIS DIDN'T WORK AS WRITTEN, SO I'M KEEPING IT, BUT WANT TO TRY SOMETHING ELSE
-#import the names of candidates (code from the resume analysis example)
-#def load_file(filepath):
-    #with open(filepath, "r") as votes_file_handler:
-        #return votes_file_handler.read().lower().split()
-# Grab the list of candidates
-#candidate_list = load_file(election_data)
-# Create a set of unique words from the resume
-#candidates = set()
-#print(candidates)
-#END OF CODE THAT DIDN'T WORK
-
+#open file to read number of votes (maybe I can remove this once I figure out the counter)
 with open(election_data) as csvfile:
     
-    # CSV reader specifies delimiter and variable that holds contents
     votes_reader = csv.reader(csvfile, delimiter=',')
+    next(votes_reader)
+    total_votes = len(list(votes_reader))
+
+#open file to retrieve candidates
+with open(election_data) as csvfile:
+    votes_reader = csv.reader(csvfile, delimiter=',')
+    next(votes_reader)
     candidates = []
     
-    for row in votes_reader:
+    for row in votes_reader:   
         candidate = row[2]
 
-        candidates.append(candidate)
-        print(candidates)
+        if candidate not in candidates:
+            candidates.append(candidate)
 
-    # Read the header row first (skip this step if there is now header)
-    votes_header = next(votes_reader)
-    print(f"CSV Header: {votes_header}")
+votes = Counter(candidates)
+with open(election_data) as input_file:
+    for row in csv.reader(input_file, delimiter=','):
+        votes[row[2]] += 1
 
-    #The total number of votes cast
-    total_votes = len(list(votes_reader))
-    print(total_votes)
+print (candidates)
+print(total_votes)
+print (votes)
 
 #A complete list of candidates who received votes
 #The percentage of votes each candidate won
