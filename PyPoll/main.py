@@ -1,8 +1,6 @@
 #import os module to create a file path and to read a CSV file
 import os
 import csv
-import string
-import collections
 
 #import the counter
 from collections import Counter
@@ -17,45 +15,22 @@ with open(election_data) as csvfile:
     next(votes_reader)
     total_votes = len(list(votes_reader))
 
-#open file to retrieve candidates
-with open(election_data) as csvfile:
-    votes_reader = csv.reader(csvfile, delimiter=',')
-    next(votes_reader)
-    candidates = []
-    
-    for row in votes_reader:   
-        candidate = row[2]
-
-        if candidate not in candidates:
-            candidates.append(candidate)
-
-votes = Counter(candidates)
+votes = Counter()
 with open(election_data) as input_file:
+    next(input_file)
     for row in csv.reader(input_file, delimiter=','):
         votes[row[2]] += 1
 
-print (candidates)
-print(total_votes)
-print (votes)
 
-#A complete list of candidates who received votes
-#The percentage of votes each candidate won
-#The total number of votes each candidate won
-#The winner of the election based on popular vote.
+print("Election Results")
+print("-----------------------")
+print(f'Total Votes {total_votes}')
+print("-----------------------")
+print(votes)
+print("-----------------------")
 
-#is float helpful here? 
+print("-----------------------")
 
-#Print to terminal and export to text file with the results
-#summary = DataFrame({print("Election Results", 
-# print("---------------------"),
-# "Total Votes": [total_votes], 
-# print("---------------------"), 
-# "Candidates": [candidate_list],
-# print("---------------------"),
-# "Winner": [winner]
-# print("---------------------")})
-
-#FROM THE DIRECTIONS/EXAMPLE
 #Election Results
 #----------------------
 #Total Votes: XXXXXXXX
