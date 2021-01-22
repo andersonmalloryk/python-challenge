@@ -5,52 +5,37 @@ import csv
 #import the counter
 from collections import Counter
 
-#path
+#establish path to file
 election_data = os.path.join('Resources', 'election_data.csv')
 
-#open file to read number of votes (maybe I can remove this once I figure out the counter)
+#open file to read number of votes 
 with open(election_data) as csvfile:
     
     votes_reader = csv.reader(csvfile, delimiter=',')
+    #skip the header
     next(votes_reader)
+    #get the lenght of the list to set the total votes
     total_votes = len(list(votes_reader))
 
+#set a counter to establish how many votes each candidate got 
 votes = Counter()
 with open(election_data) as input_file:
+    #skip the header
     next(input_file)
     for row in csv.reader(input_file, delimiter=','):
         votes[row[2]] += 1
-
-
+    
 print("Election Results")
 print("-----------------------")
-print(f'Total Votes {total_votes}')
+print(f'Total Votes: {total_votes}')
 print("-----------------------")
-print(votes)
+#read the contents of the counter adding the percent inbetween
+for k,v in votes.items():
+    print(str(k)+':',str(round((v/total_votes)*100,3))+'%','('+str(v)+')')
+print("-----------------------")
+#read the most common candidate name (key) and skip the value (number of votes)
+for k,v in votes.most_common(1):
+    print(f'Winner: {k}')
 print("-----------------------")
 
-print("-----------------------")
-
-#Election Results
-#----------------------
-#Total Votes: XXXXXXXX
-#----------------------
-#Khan: XX.XXX% (XXXXXXXX)
-#Corey: XX.XXX% (XXXXXXX)
-#li:  XX.XXX% (XXXXXXX)
-#O'Tooley:  XX.XXX% (XXXXXXX)
-#----------------------
-#Winner: NAME
-#----------------------
-
-#methodology
-#open the file
-#read the file
-#read the third column [2] and store it as a list
-#read that list to find the unique values
-#create a list with the candidate list (unique values from column [2])
-#count the number of times each name in the list occures in the column
-#count the total number of rows
-#create a dictionary with each candidates name, the % of the total votes they won, and their vote count
-#print it out 
-#create a txt files to print it out there
+#print to a txt file
