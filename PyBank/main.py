@@ -8,68 +8,39 @@ budget_data = os.path.join('Resources', 'budget_data.csv')
 print(budget_data)
 
 #add a container for the change column to be added to calculate average change of profit and losses
+#data = {"Month":[],"Profit":[],"Change"=[]}
+change_list= []
 profit_loss_change = []
 
-with open(budget_data, newline='') as csvfile:
+with open(budget_data, 'r') as csvfile:
+     # CSV reader specifies delimiter and variable that holds contents
+     budget_reader = csv.reader(csvfile, delimiter=',')
 
-    # CSV reader specifies delimiter and variable that holds contents
-    budget_reader = csv.DictReader(csvfile, delimiter=',')
+     # Read the header row first 
+     next(budget_reader)
 
-    # Read the header row first 
-    budget_header = next(budget_reader)
-    print(f"CSV Header: {budget_header}")
+     #The total number of months included in the dataset
+     month_count = len(list(budget_reader))
+     print(month_count)  
 
-    #IT WORKS  when the month counter is in this location
-
-    for row in budget_reader:
-        month = row["Date"]
-        profit_loss = row["Profit/Losses"]     
-        #add profit_loss_change - can't get this to work get a syntax error
-        #change = profit_loss.pct_change()
-        profit_loss_change.apend(
-            {
-                "month": row["Date"],
-                "profit_loss": row["Profit/Losses"],
-                "change": change
-            }
-        )
-
-#pull file name from original path
-_, filename = os.path.split(filepath)
-
-#write to the original file adding the change column
-csvpath = os.path.join("output", filename)
-with open(csvpath, "w") as csvfile:
-    fieldnames = ["month", "profit_loss", "change"]
-    writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-    writer.writeheader()
-    writer.writerows(profit_loss_change)
-
-#appended_budget = os.path.join("budget_data_change.csv")
-#with open(appended_budget, "w", newline="") as datafile:
-    #writer = csv.write(datafile)
-    #writer.writerow("profit_loss_change")
-
-    #writer.writerows(appended_budget)
-
-    #The total number of months included in the dataset
-    month_count = len(list(budget_reader))
-    print(month_count)   
+     for index, row in enumerate(budget_reader):
+        if (index+1 < len(budget_reader) and index-1 >=0):
+            if row == 0
+            profit_loss_change = 0
+            else
+            profit_loss_change = ((row[1]-str(budget_reader[index-1])/str(budget_reader[index-1])
+            print(index, end=', ')
         
-        #for row in budget_reader:
-
-        #attempt at calculating change.... NEEDS HELP
-        #profit_loss_change = f"{row}-{row + 1}"
-        #profit_loss_change.apend({"month": row["Date"],"profit_loss": row:["Profit/Losses"],"profit_loss_change"; row["Profit/Losses_change"]})
-        
-        #need to test this out to figure out what it's doing
-        #print(f"profit_loss_change")
+# with open(budget_data, 'w', newline='') as csvfile:
+#     fieldnames=['Date','Profit/Losses','change']
+#     # CSV reader specifies delimiter and variable that holds contents
+#     budget_writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        #for index, row in enumerate(budget_reader):
 
 #Calculate the changes in "Profit/Losses" over the entire period, then find the average of those changes
 #profit_loss_change = calculate change of all transactions
 #profit_loss_average = def average("Change")
 #print(average["Change"])
-# add this to the csv and write it out??
 
 # Grab the filename from the original path (from Python extra content folder employee_email_solved.py)
 #_, filename = os.path.split(filepath)
@@ -82,7 +53,15 @@ with open(csvpath, "w") as csvfile:
     #writer.writeheader()
     #writer.writerows(profit_loss_change)
 
+    # for row in budget_reader:
+    #     if previous is not None or (previous == 0):
+    #         profit_loss_change = 0
+    #         all_data.append({"month": row["Date"],"profit_loss": row:["Profit/Losses"],"profit_loss_change"; row["Profit/Losses_change"]})
+    #     else 
+    #         profit_loss_change = ((row[1]-previous)/previous)
+    #         all_data.apend({"month": row["Date"],"profit_loss": row:["Profit/Losses"],"profit_loss_change"; row["Profit/Losses_change"]})
 
+    #     previous = row[1]
 
 #The net total amount of "Profit/Losses" over the entire period
 #total_amount = sum(FILENAME["Profit/Losses"])
@@ -111,3 +90,14 @@ with open(csvpath, "w") as csvfile:
 #Average Change: $XXXX.XX
 #Greatest Increase in Profits: Mon-Year ($XXXXXX)
 #Greatest Decrease in Profits: Mon-Year ($XXXXXX)
+
+#methodology
+#first I need to read the csv file / import the os and csv 
+#then I need to count how many months -- simple lenght should work (use from pypoll)
+#calculate the total amount of interactions - some kind of sum fumnction of the [2] column
+#calculate the change - I think there is a percent change function
+    #store the last value and then set up an equation with the current value and print it out to the csv?
+#store change in a dictionary with the month column
+#report out the max in this change dicationary
+#report out the min in this change dictionary
+#pull the average from this change dictionary
