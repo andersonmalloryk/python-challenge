@@ -4,33 +4,51 @@ import csv
 #do I need to import string
 
 budget_data = os.path.join('Resources', 'budget_data.csv')
-#check the path
-print(budget_data)
 
 #add a container for the change column to be added to calculate average change of profit and losses
 #data = {"Month":[],"Profit":[],"Change"=[]}
 change_list= []
 profit_loss_change = []
 
+#one idea I have is to set variable of the previous value
+    #define a function that is like this:
+# def change(r):
+#   if(r > 0):
+#     result = (r - r-1) / r-1
+#       change_list.amend(result)
+#   else:
+#     result = 0
+#   return result
+#       change_list.amend(result)
+
+
+#myList = [row[1]]
+#myList.append(equation that doesn't work....)
+
 with open(budget_data, 'r') as csvfile:
      # CSV reader specifies delimiter and variable that holds contents
      budget_reader = csv.reader(csvfile, delimiter=',')
 
      # Read the header row first 
-     next(budget_reader)
+     #next(budget_reader)
 
      #The total number of months included in the dataset
-     month_count = len(list(budget_reader))
-     print(month_count)  
+     #month_count = len(list(budget_reader))
+     #print(month_count)  
 
      for index, row in enumerate(budget_reader):
         if (index+1 < len(budget_reader) and index-1 >=0):
-            if row == 0
-            profit_loss_change = 0
-            else
-            profit_loss_change = ((row[1]-str(budget_reader[index-1])/str(budget_reader[index-1])
-            print(index, end=', ')
-        
+            if row[1] == 0:
+                profit_loss_change = 0
+                change_list.append(float(profit_loss_change))
+            else: #row[1] is not None:
+                #profit_loss_change = ((row[1]-str(budget_reader[index-1])/str(budget_reader[index-1])
+                profit_loss_change = ((row[1]-(budget_reader[row-1])/(budget_reader[row-1])))
+                change_list.append(float(profit_loss_change))
+
+print(profit_loss_change)
+print(change_list)
+
 # with open(budget_data, 'w', newline='') as csvfile:
 #     fieldnames=['Date','Profit/Losses','change']
 #     # CSV reader specifies delimiter and variable that holds contents
