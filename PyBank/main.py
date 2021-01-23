@@ -30,14 +30,14 @@ with open(budget_data, 'r') as csvfile:
      budget_reader = csv.reader(csvfile, delimiter=',')
 
      # Read the header row first 
-     #next(budget_reader)
+     next(budget_reader)
 
      #The total number of months included in the dataset
-     #month_count = len(list(budget_reader))
-     #print(month_count)  
+     month_count = len(list(budget_reader))
+     print(month_count)  
 
      for index, row in enumerate(budget_reader):
-        if (index+1 < len(budget_reader) and index-1 >=0):
+        if (index+1 < len(month_count) and index-1 >=0):
             if row[1] == 0:
                 profit_loss_change = 0
                 change_list.append(float(profit_loss_change))
