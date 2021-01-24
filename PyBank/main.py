@@ -17,10 +17,10 @@ with open(budget_data, newline='') as csvfile:
 
     for row in input_file:
         if previous is not None:
-            profit_loss_change = (float(row["Profit/Losses"])-previous)
+            profit_loss_change = (int(row["Profit/Losses"])-previous)
         else:
             profit_loss_change = 0
-        previous = float(row["Profit/Losses"])
+        previous = int(row["Profit/Losses"])
         percent_change.append(profit_loss_change)
         month_count += 1
         total_amount += int(row["Profit/Losses"])
@@ -42,11 +42,3 @@ print("Greatest Increase in Profits:" + max_month + " ($" + str(max_change) + ")
 print("Greatest Decrease in Profits:" + min_month + " ($" + str(min_change) + ")")
 
 #print to txt file with results
-
-# Financial Analysis
-# ----------------------------
-# Total Months: 86
-# Total: $38382578
-# Average  Change: $-2315.12
-# Greatest Increase in Profits: Feb-2012 ($1926159)
-# Greatest Decrease in Profits: Sep-2013 ($-2196167)
