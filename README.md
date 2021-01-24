@@ -19,5 +19,5 @@ Methodology for PyPoll
 1. Use the counter to count votes and store them.
 1. Print the results to the terminal as well as a txt file.
 
-Limitations
+Limitations:
 The PyPoll script depends on you to copy the results from the terminal to report out to the txt file, which is not ideal.
