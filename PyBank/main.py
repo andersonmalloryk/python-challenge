@@ -42,3 +42,12 @@ print("Greatest Increase in Profits:" + max_month + " ($" + str(max_change) + ")
 print("Greatest Decrease in Profits:" + min_month + " ($" + str(min_change) + ")")
 
 #print to txt file with results
+f = open(os.path.join('Analysis','results.txt'),'w+')
+f.writelines("Financial Analysis\n")
+f.writelines("----------------------\n")
+f.writelines("Total Months: " + str(month_count)+"\n")
+f.writelines("Total: $" + str(total_amount)+"\n")
+f.writelines("Average Change: $" + str(average_change)+"\n")
+f.writelines("Greatest Increase in Profits:" + max_month + " ($" + str(max_change) + ")"+"\n")
+f.writelines("Greatest Decrease in Profits:" + min_month + " ($" + str(min_change) + ")")
+f.close()
