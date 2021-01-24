@@ -20,4 +20,4 @@ Methodology for PyPoll
 1. Print the results to the terminal as well as a txt file.
 
 Limitations:
-The PyPoll script depends on you to copy the results from the terminal to report out to the txt file, which is not ideal.
+The PyPoll script depends on you to copy the results from the terminal to report out to the txt file, which is not ideal. For the financial data there must be only two columns and the first column must be called Dates and the second must be called Profit/Losses for the script to run properly. For the poll data the names of the candidates must be in the third column for this script to work. The headers do not matter for the poll data and are skipped in the script. 
