@@ -8,8 +8,8 @@ with open(budget_data, newline='') as csvfile:
     input_file = csv.DictReader(csvfile)
 
     total_amount = 0
-    min_change = None
-    max_change = None
+    min_change = 0
+    max_change = 0
     percent_change = []
     previous = None
     average_change = 0
@@ -24,6 +24,12 @@ with open(budget_data, newline='') as csvfile:
         percent_change.append(profit_loss_change)
         month_count += 1
         total_amount += int(row["Profit/Losses"])
+        if profit_loss_change < min_change:
+            min_change = profit_loss_change
+            min_month = (row["Date"])
+        if profit_loss_change > max_change:
+            max_change = profit_loss_change
+            max_month = (row["Date"])
     average_change = round(sum(percent_change) / (month_count - 1),2)
 
 #FROM THE DIRECTIONS/EXAMPLE
@@ -32,7 +38,8 @@ print("----------------------")
 print("Total Months: " + str(month_count))
 print("Total: $" + str(total_amount))
 print("Average Change: $" + str(average_change))
-#sort the list smallest to largest, then:
+print("Greatest Increase in Profits:" + max_month + " ($" + str(max_change) + ")")
+print("Greatest Decrease in Profits:" + min_month + " ($" + str(min_change) + ")")
 
 #print to txt file with results
 
